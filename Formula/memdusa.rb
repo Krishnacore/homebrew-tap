@@ -2,7 +2,6 @@
 class Memdusa < Formula
   desc "Memory & durability for AI agents and coding harnesses"
   homepage "https://github.com/Krishnacore/memdusa"
-  version "0.1.1"
   license "Apache-2.0"
 
   on_macos do
@@ -43,7 +42,8 @@ class Memdusa < Formula
 
   test do
     assert_match "memdusa #{version}", shell_output("#{bin}/memdusa --version")
-    system bin/"memdusa", "--database-url", "sqlite:#{testpath}/t.db", "--project", "brew/test", "remember", "brew works"
-    assert_match "brew works", shell_output("#{bin}/memdusa --database-url sqlite:#{testpath}/t.db --project brew/test recall")
+    db = "sqlite:#{testpath}/t.db"
+    system bin/"memdusa", "--database-url", db, "--project", "brew/test", "remember", "brew works"
+    assert_match "brew works", shell_output("#{bin}/memdusa --database-url #{db} --project brew/test recall")
   end
 end
